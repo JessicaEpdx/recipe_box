@@ -1,10 +1,19 @@
 <h1>This is your Recipe Box</h1>
 
+
 <h3>Select one of your current recipes:</h3>
 <% if @recipes.any? %>
+  <% rated_recipes = @recipes.-(@recipes.where(:rating => nil)) %>
+  <% unrated_recipes = @recipes.-(rated_recipes) %>
   <ul>
-    <% @recipes.each do |recipe| %>
-      <li><a href="/recipe/<%= recipe.id %>"><%= recipe.title %></a></li>
+    <p>Your recipes sorted based on rank:</p>
+    <% rated_recipes.each do |recipe| %>
+    <li><a href="/recipe/<%= recipe.id %>"><%= recipe.title %></a> - <%= recipe.rating %> Stars</li>
+    <% end %>
+    <br>
+    <p>Your unrated recipes:</p>
+    <% unrated_recipes.each do |recipe| %>
+    <li><a href="/recipe/<%= recipe.id %>"><%= recipe.title %></a></li>
     <% end %>
   </ul>
 <% end %>

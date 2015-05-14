@@ -3,7 +3,7 @@ Bundler.require(:default, :production)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 get('/') do
-  @recipes = Recipe.all
+  @recipes = Recipe.all.order(rating: :desc)
   erb(:index)
 end
 
@@ -91,5 +91,20 @@ patch('/recipe/:id') do
     category_to_add = Category.find(category_add.to_i)
     category_to_add.recipes.push(@recipe)
   end
+  erb(:recipe)
+end
+
+delete('/categories') do
+  category = Category.find(params.fetch("id").to_i)
+  category.delete
+  @all_categories = Category.all
+  erb(:categories)
+end
+
+patch('/recipe_rating') do
+  rating = params.fetch("add_rating").to_i
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  @recipe.update({:rating => rating})
+  @all_categories = Category.all()
   erb(:recipe)
 end

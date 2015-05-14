@@ -1,26 +1,53 @@
-<h3><%= @recipe.title %></h3>
+<div class="row">
+  <div class="col-sm-6">
+    <h1><%= @recipe.title %></h1>
 
 
-<ul style="list-style:none;">
-    <li>Ingredients: <%= @recipe.ingredients %></li>
-    <li>Instructions: <%= @recipe.instructions %></li>
+    <ul style="list-style:none;">
+        <li>Ingredients: <%= @recipe.ingredients %></li>
+        <li>Instructions: <%= @recipe.instructions %></li>
 
-      <% if @recipe.categories.any? %>
-        <li>Categories:
-          <% @recipe.categories.each do |c| %>
-            <%= c.name %></li>
+          <% if @recipe.categories.any? %>
+            <li>Categories:
+              <% @recipe.categories.each do |c| %>
+                <%= c.name %></li>
+              <% end %>
+            <% end %>
+
+            <% if @recipe.rating.!=(nil) %>
+              <li>Rating:
+                  <%= @recipe.rating %></li>
+              <% end %>
+
+    </ul>
+
+    <form action="/" method="post">
+    <input name="_method" type="hidden" value="delete">
+    <input name="id" type="hidden" value="<%=@recipe.id%>">
+    <button type="submit" class="btn btn-danger">Delete Recipe</button>
+    </form>
+  </div>
+
+
+  <form action="/recipe_rating" method="post">
+    <input name="_method" type="hidden" value="patch">
+    <input name="id" type="hidden" value="<%=@recipe.id%>">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <h2 style="margin-top:25px;">RATE THIS FOOD</h2>
+        <select name="add_rating">
+          <% ratings = Range.new(1,5) %>
+          <% ratings.each do |n| %>
+            <option name="add_rating" value="<%=n%>"><%= n %></option>
           <% end %>
-        <% end %>
+        </select>
+        <button style="margin-left:20px;" type="submit" class="btn btn-info">RATE IT</button>
+    </div>
+  </form>
 
-</ul>
+</div>
 
-<form action="/" method="post">
-<input name="_method" type="hidden" value="delete">
-<input name="id" type="hidden" value="<%=@recipe.id%>">
-<button type="submit" class="btn btn-danger">Delete Recipe</button>
-</form>
-
-<br><br>
+<br><br><br><br><br><br><br><br>
 
 <form action="/recipe/<%= @recipe.id %>" method="post">
   <input name="_method" type="hidden" value="patch">

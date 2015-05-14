@@ -1,5 +1,14 @@
 <h2><%= @category.name %> recipes</h2>
 
+
+<form action="/categories" method="post">
+<input name="_method" type="hidden" value="delete">
+<input name="id" type="hidden" value="<%=@category.id%>">
+<button type="submit" class="btn btn-danger">Delete Category</button>
+</form>
+
+<br><br>
+
 <ul style="list-style:none;">
   <% @recipes.each do |r| %>
     <li style="font-size:20px;">Title: <%= r.title %></li>

@@ -1,5 +1,6 @@
 require('spec_helper')
 
+
 describe Recipe do
   describe('recipe form path', :type => :feature) do
     it('will add a recipe when you submit recipe form') do

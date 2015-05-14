@@ -1,0 +1,68 @@
+<h3><%= @recipe.title %></h3>
+
+
+<ul style="list-style:none;">
+    <li>Ingredients: <%= @recipe.ingredients %></li>
+    <li>Instructions: <%= @recipe.instructions %></li>
+
+      <% if @recipe.categories.any? %>
+        <li>Categories:
+          <% @recipe.categories.each do |c| %>
+            <%= c.name %></li>
+          <% end %>
+        <% end %>
+
+</ul>
+
+<form action="/" method="post">
+<input name="_method" type="hidden" value="delete">
+<input name="id" type="hidden" value="<%=@recipe.id%>">
+<button type="submit" class="btn btn-danger">Delete Recipe</button>
+</form>
+
+<br><br>
+
+<form action="/recipe/<%= @recipe.id %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <h4>Update Recipe Title:</h4>
+    <input name="title" type="text">
+  </div>
+
+
+  <div class="form-group">
+    <h4>Update Recipe Indredients</h4>
+    <textarea name="ingredients" type="text" rows="10" cols="60"></textarea>
+  </div>
+
+
+  <div class="form-group">
+    <h4>Update Recipe Instructions:</h4>
+    <textarea name="instructions" type="text" rows="10" cols="60"></textarea>
+  </div>
+
+
+  <div class="form-group">
+    <h4>Remove a Category:</h4>
+    <select name="categories">
+      <option></option>
+      <% @recipe.categories.each do |category| %>
+      <option name="categories" value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <h4>Add a Category:</h4>
+    <select name="add_cat">
+      <option></option>
+      <% @all_categories.-(@recipe.categories).each do |category| %>
+      <option name="add_cat" value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+
+  <button type="submit" class="btn btn-success">Change this Recipe!</button>
+</form>

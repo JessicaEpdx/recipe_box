@@ -1,0 +1,9 @@
+<h2><%= @category.name %> recipes</h2>
+
+<ul style="list-style:none;">
+  <% @recipes.each do |r| %>
+    <li style="font-size:20px;">Title: <%= r.title %></li>
+    <BLOCKQUOTE><li>    Ingredients: <%= r.ingredients %></li>
+    <li>    Instructions: <%= r.instructions %></li></BLOCKQUOTE>
+  <% end %>
+</ul>

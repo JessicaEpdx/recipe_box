@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Recipe Box</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
 </head>
 <div class="container">
   <%= yield %>
 </div>
+<footer>
+      <br>
+      <div class="container">
+        <button class="btn"><a href="/">Home</a></button>
+        <button class="btn"><a href="/recipes">Add a Recipe</a></button>
+        <button class="btn"><a href="/categories">Categories</a></button>
+      </div>
+    </footer>
 </body>
 </html>

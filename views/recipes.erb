@@ -1,0 +1,24 @@
+<h3>Add a recipe</h3>
+
+<form action="/recipes" method="post">
+  <div class="form-group">
+    <label for="title">Name dat recipe:</label>
+    <input name="title" type="text">
+  </div>
+  <div class="form-group">
+    <label for="ingredients">List out those things to put in here:</label>
+    <textarea name="ingredients" type="text" rows="10"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="instructions">How to make this tasty treat:</label>
+    <textarea name="instructions" type="text" rows="10"></textarea>
+  </div>
+  <div class="form-group">
+    <select name="categories">
+      <% @all_categories.each do |category| %>
+      <option name="categories" value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Add this Recipe into the box!</button>
+</form>

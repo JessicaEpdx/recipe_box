@@ -1,0 +1,15 @@
+<h2>Add a Category</h2>
+
+<form action='/categories' action='post'>
+  <label for="category_input">Category Name</label>
+    <input name="category_input" type="text">
+    <button type="submit" class="btn btn-warning">Add a Category</button>
+</form>
+
+
+<h3>All of your categories:</h3>
+<ul>
+  <% @all_categories.each do |c|%>
+    <li><%=c.name%></li>
+  <%end%>
+</ul>

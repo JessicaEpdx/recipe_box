@@ -1,0 +1,10 @@
+<h1>This is your Recipe Box</h1>
+
+<h3>Select one of your current recipes:</h3>
+<% if @recipes.any? %>
+  <ul>
+    <% @recipes.each do |recipe| %>
+      <li><a href="/recipe/<%= recipe.id %>"><%= recipe.title %></a></li>
+    <% end %>
+  </ul>
+<% end %>

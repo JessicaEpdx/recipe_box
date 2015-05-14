@@ -8,23 +8,47 @@ get('/') do
 end
 
 get('/recipes') do
-  @all_categories = Category.all
-  @recipes = Recipe.all
   erb(:recipes)
 end
 
-post('/recipes') do
-  category_id = params.fetch("categories").to_i
-  category_choice = Category.find(params.fetch("categories").to_i)
-  new_recipe = Recipe.new({:title => params.fetch("title"), :ingredients => params.fetch("ingredients"), :instructions => params.fetch("instructions")})
+post('/recipe/new') do
+  # category_id = params.fetch("categories").to_i
+  # category_choice = Category.find(params.fetch("categories").to_i)
+  new_recipe = Recipe.new({:title => params.fetch("title")})
   if new_recipe.save
-    category_choice.recipes.push(new_recipe)
+    # category_choice.recipes.push(new_recipe)
     @recipes = Recipe.all
-    redirect('/')
+    redirect("/recipe/new/#{new_recipe.id}")
   else
     erb(:error)
   end
+end
 
+get('/recipe/new/:id') do
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  erb(:ingredient_form)
+end
+
+patch('/recipe/new/:id') do
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  new_ingredient = Ingredient.new(description: params.fetch("description"), amount: params.fetch("amount"))
+  if new_ingredient.save
+    @recipe.ingredients.push(new_ingredient)
+    redirect("recipe/new/#{@recipe.id}")
+  else
+    erb(:error)
+  end
+end
+
+get('/recipe/:id/instructions') do
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  erb(:instruction_form)
+end
+
+patch('/recipe/:id/instructions') do
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  @recipe.update(instructions: params.fetch("instructions"))
+  redirect("/recipe/#{params.fetch('id').to_i}")
 end
 
 get('/categories') do
@@ -64,8 +88,8 @@ end
 patch('/recipe/:id') do
   @all_categories = Category.all
   new_title = params.fetch("title")
-  new_ingredients = params.fetch("ingredients")
   new_instructions = params.fetch("instructions")
+  new_ingredients = params.fetch("ingredients")
   category_delete = params.fetch("categories")
   if params.fetch("add_cat")
     category_add = params.fetch("add_cat")

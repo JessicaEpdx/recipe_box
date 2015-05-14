@@ -4,7 +4,9 @@
 
 
     <ul style="list-style:none;">
-        <li>Ingredients: <%= @recipe.ingredients %></li>
+        <li>Ingredients: <% @recipe.ingredients.each() do |ingredient| %></li>
+                              <li><%= ingredient.description %></li>
+                              <% end %>
         <li>Instructions: <%= @recipe.instructions %></li>
 
           <% if @recipe.categories.any? %>
@@ -58,7 +60,7 @@
 
 
   <div class="form-group">
-    <h4>Update Recipe Indredients</h4>
+    <h4>Add Recipe Ingredients</h4>
     <textarea name="ingredients" type="text" rows="10" cols="60"></textarea>
   </div>
 

@@ -1,0 +1,10 @@
+<h3>Add Instructions:</h3>
+
+<form action="/recipe/<%= @recipe.id %>/instructions" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <h4>Update Recipe Instructions:</h4>
+    <textarea name="instructions" type="text" rows="10" cols="60"></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Add Instructions</button>
+</form>

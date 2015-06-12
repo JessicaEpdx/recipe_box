@@ -1,5 +1,5 @@
 #Recipe Box
-###created by: Jessica Engel
+###created by: Jessica Engel & Cory Ribson
 
 Recipe Box is an easy way to store your favorite recipes and reference them time and time again.
 developed with ruby 2.2.0p0
